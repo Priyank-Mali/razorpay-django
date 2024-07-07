@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Payment-Success
+{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <img src="{% static "/image/payment-success.png" %}" style="width:200px" alt="">
+        <h2>Thank You Your Payment Received</h2>
+        <a href="{% url "paymentView" %}" class="btn btn-warning mt-2">Buy Again</a>
+    </div>
+{% endblock %}

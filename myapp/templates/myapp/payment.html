@@ -1,0 +1,53 @@
+{% extends "myapp/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Payment
+{% endblock %}
+
+{% block content %}
+
+    <div class="text-center">
+        <img src="{% static "/image/cofee.jpg" %}" style="width:200px;" alt="">
+        <p class="text-dark fw-bold">Buy Coffe</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" name="amount" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success" style="width:100%">Submit</button>
+    </form>
+
+    {% if payment %}
+    <div class="text-center">
+      <form action="/success/" method="post">
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ razorpay_key_id }}"
+            data-amount="{{ payment.amount }}"
+            data-currency="INR"
+            data-order_id="{{ payment.id }}"
+            data-buttontext="Pay with Razorpay"
+            data-name="Coffee"
+            data-description="Test Transaction"
+            data-image="https://example.com/your_logo"
+            data-prefill.name="John Doe"
+            data-prefill.email="john.doe@example.com"
+            data-theme.color="#F37254">
+        </script>
+          <input type="hidden" custome="Hidden Element" name="hidden">
+      </form>
+    </div>
+  {% endif %}
+{% endblock %}
